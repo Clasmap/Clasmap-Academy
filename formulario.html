@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Nombre y Apellido</title>
+</head>
+<body>
+    <h1>Formulario de Nombre y Apellido</h1>
+    <form id="nameForm">
+        <label for="firstName">Nombre:</label>
+        <input type="text" id="firstName" name="firstName"><br><br>
+        <label for="lastName">Apellido:</label>
+        <input type="text" id="lastName" name="lastName"><br><br>
+        <input type="submit" value="Enviar">
+    </form>
+
+    <div id="output"></div>
+
+    <script>
+        document.getElementById('nameForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            document.getElementById('output').innerText = `Nombre: ${firstName}, Apellido: ${lastName}`;
+        });
+    </script>
+</body>
+</html>
