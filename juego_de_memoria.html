@@ -1,0 +1,150 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de Memoria de Verbos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .memory-game {
+            display: flex;
+            flex-wrap: wrap;
+            width: 640px;
+            justify-content: space-around;
+        }
+        .memory-card {
+            width: calc(25% - 10px);
+            height: 150px;
+            margin: 5px;
+            position: relative;
+            transform: scale(1);
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+        }
+        .memory-card.flip {
+            transform: rotateY(180deg);
+        }
+        .front, .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #fff;
+        }
+        .front {
+            background-color: #1c7cc7;
+        }
+        .back {
+            background-color: #d4a017;
+            transform: rotateY(180deg);
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #1c7cc7;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #155a8a;
+        }
+    </style>
+</head>
+<body>
+    <div class="memory-game" id="memory-game">
+        <!-- Las cartas se generan dinámicamente con JavaScript -->
+    </div>
+    <button id="start-button">Iniciar/Reiniciar Juego</button>
+    
+    <script>
+        const cardsArray = [
+            { name: 'Be', translation: 'Ser/Estar' },
+            { name: 'Have', translation: 'Tener' },
+            { name: 'Do', translation: 'Hacer' },
+            { name: 'Say', translation: 'Decir' },
+            { name: 'Go', translation: 'Ir' },
+            { name: 'Get', translation: 'Obtener' },
+            { name: 'Make', translation: 'Hacer' },
+            { name: 'Know', translation: 'Saber' },
+            { name: 'Think', translation: 'Pensar' },
+            { name: 'Take', translation: 'Tomar' }
+        ];
+
+        let memoryGame = document.getElementById('memory-game');
+        let startButton = document.getElementById('start-button');
+
+        function shuffle(array) {
+            array.sort(() => Math.random() - 0.5);
+        }
+
+        function createBoard() {
+            memoryGame.innerHTML = '';
+            const cardElements = [];
+
+            cardsArray.forEach(card => {
+                const cardElement = `
+                    <div class="memory-card" data-name="${card.name}">
+                        <div class="front">${card.name}</div>
+                        <div class="back">${card.translation}</div>
+                    </div>
+                `;
+                cardElements.push(cardElement, cardElement);
+            });
+
+            shuffle(cardElements);
+
+            cardElements.forEach(cardHTML => {
+                memoryGame.innerHTML += cardHTML;
+            });
+
+            document.querySelectorAll('.memory-card').forEach(card => {
+                card.addEventListener('click', flipCard);
+            });
+        }
+
+        function flipCard() {
+            if (this.classList.contains('flip')) return;
+            this.classList.add('flip');
+            const flippedCards = document.querySelectorAll('.memory-card.flip');
+            if (flippedCards.length === 2) {
+                setTimeout(() => {
+                    checkMatch(flippedCards);
+                }, 1000);
+            }
+        }
+
+        function checkMatch(cards) {
+            if (cards[0].dataset.name === cards[1].dataset.name) {
+                cards.forEach(card => card.removeEventListener('click', flipCard));
+            } else {
+                cards.forEach(card => card.classList.remove('flip'));
+            }
+        }
+
+        startButton.addEventListener('click', () => {
+            createBoard();
+        });
+
+        // Inicializar el tablero al cargar la página
+        createBoard();
+    </script>
+</body>
+</html>
