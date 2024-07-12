@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluación de Pronunciación de Párrafos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        #paragraph-display {
+            font-size: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            padding: 0 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #1c7cc7;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #155a8a;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Evaluación de Pronunciación de Párrafos</h1>
+    <div id="paragraph-display">Presiona "Nuevo Párrafo" para comenzar</div>
+    <button id="new-paragraph-button">Nuevo Párrafo</button>
+    <button id="record-button">Grabar y Evaluar Pronunciación</button>
+    <div id="result"></div>
+    
+    <script>
+        const paragraphs = [
+            "Learning English is fun and rewarding. It helps you communicate with people from different countries.",
+            "The quick brown fox jumps over the lazy dog. This sentence contains every letter in the English alphabet.",
+            "Reading books and watching movies in English can improve your language skills significantly.",
+            "Practice makes perfect. The more you practice speaking English, the better you will become at it.",
+            "Traveling to English-speaking countries is a great way to immerse yourself in the language and culture."
+        ];
+        const paragraphDisplay = document.getElementById('paragraph-display');
+        const newParagraphButton = document.getElementById('new-paragraph-button');
+        const recordButton = document.getElementById('record-button');
+        const resultDisplay = document.getElementById('result');
+
+        let currentParagraph = '';
+
+        newParagraphButton.addEventListener('click', () => {
+            currentParagraph = paragraphs[Math.floor(Math.random() * paragraphs.length)];
+            paragraphDisplay.textContent = currentParagraph;
+            resultDisplay.textContent = '';
+        });
+
+        recordButton.addEventListener('click', () => {
+            if (!currentParagraph) {
+                alert("Primero debes obtener un nuevo párrafo.");
+                return;
+            }
+
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = 'en-US';
+            recognition.start();
+
+            recognition.onresult = function(event) {
+                const spokenParagraph = event.results[0][0].transcript.toLowerCase();
+                if (spokenParagraph === currentParagraph.toLowerCase()) {
+                    resultDisplay.textContent = "¡Buena pronunciación!";
+                    resultDisplay.style.color = "green";
+                } else {
+                    resultDisplay.textContent = `Pronunciación incorrecta. Dijiste: "${spokenParagraph}"`;
+                    resultDisplay.style.color = "red";
+                }
+            };
+
+            recognition.onerror = function(event) {
+                resultDisplay.textContent = `Error: ${event.error}`;
+                resultDisplay.style.color = "red";
+            };
+        });
+    </script>
+</body>
+</html>
