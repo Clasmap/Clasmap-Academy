@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pronunciation Practice</title>
+</head>
+<body>
+    <h1>Practice Your Pronunciation</h1>
+    <p id="word"></p>
+    <button onclick="startRecording()">Start Recording</button>
+    <p id="result"></p>
+
+    <script>
+        const words = [
+            'the', 'be', 'to', 'of', 'and', 'a', 'in', 'that', 'have', 'I',
+            'it', 'for', 'not', 'on', 'with', 'he', 'as', 'you', 'do', 'at',
+            'this', 'but', 'his', 'by', 'from', 'they', 'we', 'say', 'her', 'she',
+            'or', 'an', 'will', 'my', 'one', 'all', 'would', 'there', 'their', 'what',
+            'so', 'up', 'out', 'if', 'about', 'who', 'get', 'which', 'go', 'me'
+        ];
+
+        function getRandomWord() {
+            const randomIndex = Math.floor(Math.random() * words.length);
+            return words[randomIndex];
+        }
+
+        function startRecording() {
+            const word = getRandomWord();
+            document.getElementById('word').innerText = word;
+
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = 'en-US';
+            recognition.start();
+
+            recognition.onresult = function(event) {
+                const transcript = event.results[0][0].transcript.toLowerCase();
+                if (transcript === word.toLowerCase()) {
+                    document.getElementById('result').innerText = 'Correct!';
+                } else {
+                    document.getElementById('result').innerText = 'Try again!';
+                }
+            };
+
+            recognition.onerror = function(event) {
+                document.getElementById('result').innerText = 'Error occurred in recognition: ' + event.error;
+            };
+        }
+    </script>
+</body>
+</html>
