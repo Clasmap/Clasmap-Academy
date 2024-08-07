@@ -1,0 +1,288 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Level Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .quiz-container {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 800px;
+            padding: 20px;
+            margin: 20px;
+            overflow-y: auto;
+            height: 80vh; /* Ajusta la altura para permitir el scroll */
+        }
+        .question {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+        .options {
+            list-style-type: none;
+            padding: 0;
+        }
+        .options li {
+            margin: 10px 0;
+        }
+        .options input {
+            margin-right: 10px;
+        }
+        .submit-btn {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 1em;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .result {
+            display: none;
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>English Level Quiz</h1>
+        <div class="question-container">
+            <!-- A1 Questions -->
+            <div class="question" id="question1">
+                <p>1. What is the opposite of 'hot'?</p>
+                <ul class="options">
+                    <li><label><input type="radio" name="q1" value="correct"> Cold</label></li>
+                    <li><label><input type="radio" name="q1" value="wrong"> Warm</label></li>
+                    <li><label><input type="radio" name="q1" value="wrong"> Lukewarm</label></li>
+                    <li><label><input type="radio" name="q1" value="wrong"> None of the above</label></li>
+                </ul>
+            </div>
+            <div class="question" id="question2">
+                <p>2. How do you say 'thank you' in Spanish?</p>
+                <ul class="options">
+                    <li><label><input type="radio" name="q2" value="correct"> Gracias</label></li>
+                    <li><label><input type="radio" name="q2" value="wrong"> Merci</label></li>
+                    <li><label><input type="radio" name="q2" value="wrong"> Danke</label></li>
+                    <li><label><input type="radio" name="q2" value="wrong"> Obrigado</label></li>
+                </ul>
+            </div>
+            <div class="question" id="question3">
+                <p>3. What is the color of the sky on a clear day?</p>
+                <ul class="options">
+                    <li><label><input type="radio" name="q3" value="correct"> Blue</label></li>
+                    <li><label><input type="radio" name="q3" value="wrong"> Green</label></li>
+                    <li><label><input type="radio" name="q3" value="wrong"> Red</label></li>
+                    <li><label><input type="radio" name="q3" value="wrong"> Yellow</label></li>
+                </ul>
+            </div>
+            <div class="question" id="question4">
+                <p>4. Which month comes after January?</p>
+                <ul class="options">
+                    <li><label><input type="radio" name="q4" value="correct"> February</label></li>
+                    <li><label><input type="radio" name="q4" value="wrong"> March</label></li>
+                    <li><label><input type="radio" name="q4" value="wrong"> April</label></li>
+                    <li><label><input type="radio" name="q4" value="wrong"> December</label></li>
+                </ul>
+            </div>
+            <div class="question" id="question5">
+                <p>5. What is the capital of the USA?</p>
+                <ul class="options">
+                    <li><label><input type="radio" name="q5" value="correct"> Washington, D.C.</label></li>
+                    <li><label><input type="radio" name="q5" value="wrong"> New York</label></li>
+                    <li><label><input type="radio" name="q5" value="wrong"> Los Angeles</label></li>
+                    <li><label><input type="radio" name="q5" value="wrong"> Chicago</label></li>
+                </ul>
+            </div>
+
+            <!-- A2 Questions -->
+            <div class="question" id="question6">
+                <p>6. What is the past tense of 'go'?</p>
+                <ul class="options">
+                    <li><label><input type="radio" name="q6" value="correct"> Went</label></li>
+                    <li><label><input type="radio" name="q6" value="wrong"> Goed</label></li>
+                    <li><label><input type="radio" name="q6" value="wrong"> Going</label></li>
+                    <li><label><input type="radio" name="q6" value="wrong"> Gone</label></li>
+                </ul>
+            </div>
+            <div class="question" id="question7">
+                <p>7. Choose the correct sentence:</p>
+                <ul class="options">
+                    <li><label><input type="radio" name="q7" value="correct"> She has a cat.</label></li>
+                    <li><label><input type="radio" name="q7" value="wrong"> She have a cat.</label></li>
+                    <li><label><input type="radio" name="q7" value="wrong"> She had a cat.</label></li>
+                    <li><label><input type="radio" name="q7" value="wrong"> She having a cat.</label></li>
+                </ul>
+            </div>
+            <div class="question" id="question8">
+                <p>8. What is the plural of 'mouse'?</p>
+                <ul class="options">
+                    <li><label><input type="radio" name="q8" value="correct"> Mice</label></li>
+                    <li><label><input type="radio" name="q8" value="wrong"> Mouses</label></li>
+                    <li><label><input type="radio" name="q8" value="wrong"> Mices</label></li>
+                    <li><label><input type="radio" name="q8" value="wrong"> Mouse</label></li>
+                </ul>
+            </div>
+            <div class="question" id="question9">
+                <p>9. Which is the correct form of 'to be' in the sentence: 'They ___ at the park'?</p>
+                <ul class="options">
+                    <li><label><input type="radio" name="q9" value="correct"> Are</label></li>
+                    <li><label><input type="radio" name="q9" value="wrong"> Is</label></li>
+                    <li><label><input type="radio" name="q9" value="wrong"> Be</label></li>
+                    <li><label><input type="radio" name="q9" value="wrong"> Am</label></li>
+                </ul>
+            </div>
+            <div class="question" id="question10">
+                <p>10. What is the largest planet in our solar system?</p>
+                <ul class="options">
+                    <li><label><input type="radio" name="q10" value="correct"> Jupiter</label></li>
+                    <li><label><input type="radio" name="q10" value="wrong"> Earth</label></li>
+                    <li><label><input type="radio" name="q10" value="wrong"> Mars</label></li>
+                    <li><label><input type="radio" name="q10" value="wrong"> Venus</label></li>
+                </ul>
+            </div>
+
+            <!-- B1 Questions -->
+            <div class="question" id="question11">
+                <p>11. What is the capital of France?</p>
+                <ul class="options">
+                    <li><label><input type="radio" name="q11" value="correct"> Paris</label></li>
+                    <li><label><input type="radio" name="q11" value="wrong"> London</label></li>
+                    <li><label><input type="radio" name="q11" value="wrong"> Rome</label></li>
+                    <li><label><input type="radio" name="q11" value="wrong"> Madrid</label></li>
+                </ul>
+            </div>
+            <div class="question" id="question12">
+                <p>12. Choose the sentence with the correct use of 'there':</p>
+                <ul class="options">
+                    <li><label><input type="radio" name="q12" value="correct"> There is a book on the table.</label></li>
+                    <li><label><input type="radio" name="q12" value="wrong"> Their is a book on the table.</label></li>
+                    <li><label><input type="radio" name="q12" value="wrong"> They're is a book on the table.</label></li>
+                    <li><label><input type="radio" name="q12" value="wrong"> There are a book on the table.</label></li>
+                </ul>
+            </div>
+            <div class="question" id="question13">
+                <p>13. Which sentence is in the future tense?</p>
+                <ul class="options">
+                    <li><label><input type="radio" name="q13" value="correct"> I will go to the store tomorrow.</label></li>
+                    <li><label><input type="radio" name="q13" value="wrong"> I am going to the store.</label></li>
+                    <li><label><input type="radio" name="q13" value="wrong"> I went to the store.</label></li>
+                    <li><label><input type="radio" name="q13" value="wrong"> I go to the store.</label></li>
+                </ul>
+            </div>
+            <div class="question" id="question14">
+                <p>14. What is the correct article for 'apple'?</p>
+                <ul class="options">
+                    <li><label><input type="radio" name="q14" value="correct"> An</label></li>
+                    <li><label><input type="radio" name="q14" value="wrong"> A</label></li>
+                    <li><label><input type="radio" name="q14" value="wrong"> The</label></li>
+                    <li><label><input type="radio" name="q14" value="wrong"> Some</label></li>
+                </ul>
+            </div>
+            <div class="question" id="question15">
+                <p>15. How many continents are there on Earth?</p>
+                <ul class="options">
+                    <li><label><input type="radio" name="q15" value="correct"> Seven</label></li>
+                    <li><label><input type="radio" name="q15" value="wrong"> Five</label></li>
+                    <li><label><input type="radio" name="q15" value="wrong"> Six</label></li>
+                    <li><label><input type="radio" name="q15" value="wrong"> Eight</label></li>
+                </ul>
+            </div>
+
+            <!-- B2 Questions -->
+            <div class="question" id="question16">
+                <p>16. Which of these sentences is in the passive voice?</p>
+                <ul class="options">
+                    <li><label><input type="radio" name="q16" value="correct"> The cake was eaten by the children.</label></li>
+                    <li><label><input type="radio" name="q16" value="wrong"> The children ate the cake.</label></li>
+                    <li><label><input type="radio" name="q16" value="wrong"> The children are eating the cake.</label></li>
+                    <li><label><input type="radio" name="q16" value="wrong"> The children will eat the cake.</label></li>
+                </ul>
+            </div>
+            <div class="question" id="question17">
+                <p>17. What is the main difference between 'since' and 'for'?</p>
+                <ul class="options">
+                    <li><label><input type="radio" name="q17" value="correct"> 'Since' is used for a starting point in time; 'for' is used for a duration.</label></li>
+                    <li><label><input type="radio" name="q17" value="wrong"> 'Since' is used for duration; 'for' is used for a starting point.</label></li>
+                    <li><label><input type="radio" name="q17" value="wrong"> Both 'since' and 'for' are used interchangeably.</label></li>
+                    <li><label><input type="radio" name="q17" value="wrong"> 'Since' is used for past events; 'for' is used for future events.</label></li>
+                </ul>
+            </div>
+            <div class="question" id="question18">
+                <p>18. Which word is an adjective?</p>
+                <ul class="options">
+                    <li><label><input type="radio" name="q18" value="correct"> Beautiful</label></li>
+                    <li><label><input type="radio" name="q18" value="wrong"> Run</label></li>
+                    <li><label><input type="radio" name="q18" value="wrong"> Quickly</label></li>
+                    <li><label><input type="radio" name="q18" value="wrong"> Happiness</label></li>
+                </ul>
+            </div>
+            <div class="question" id="question19">
+                <p>19. Choose the correct sentence:</p>
+                <ul class="options">
+                    <li><label><input type="radio" name="q19" value="correct"> I have been learning English for three years.</label></li>
+                    <li><label><input type="radio" name="q19" value="wrong"> I have learn English for three years.</label></li>
+                    <li><label><input type="radio" name="q19" value="wrong"> I was learning English for three years.</label></li>
+                    <li><label><input type="radio" name="q19" value="wrong"> I have learned English since three years.</label></li>
+                </ul>
+            </div>
+            <div class="question" id="question20">
+                <p>20. What is the difference between 'would' and 'will'?</p>
+                <ul class="options">
+                    <li><label><input type="radio" name="q20" value="correct"> 'Would' is used for hypothetical situations; 'will' is used for future actions.</label></li>
+                    <li><label><input type="radio" name="q20" value="wrong"> 'Would' is used for future actions; 'will' is used for hypothetical situations.</label></li>
+                    <li><label><input type="radio" name="q20" value="wrong"> Both 'would' and 'will' are used interchangeably.</label></li>
+                    <li><label><input type="radio" name="q20" value="wrong"> 'Would' is used for past actions; 'will' is used for present actions.</label></li>
+                </ul>
+            </div>
+
+            <button class="submit-btn" onclick="submitQuiz()">Submit</button>
+            <div class="result" id="result"></div>
+        </div>
+    </div>
+    <script>
+        function submitQuiz() {
+            var score = 0;
+            var totalQuestions = 20;
+            var levels = { 'A1': 5, 'A2': 10, 'B1': 15, 'B2': 18, 'C1': 20 };
+            var resultText = '';
+
+            for (var i = 1; i <= totalQuestions; i++) {
+                var question = document.querySelector('input[name="q' + i + '"]:checked');
+                if (question && question.value === 'correct') {
+                    score++;
+                }
+            }
+
+            if (score <= levels['A1']) {
+                resultText = 'Your level is A1.';
+            } else if (score <= levels['A2']) {
+                resultText = 'Your level is A2.';
+            } else if (score <= levels['B1']) {
+                resultText = 'Your level is B1.';
+            } else if (score <= levels['B2']) {
+                resultText = 'Your level is B2.';
+            } else {
+                resultText = 'Your level is C1.';
+            }
+
+            document.getElementById('result').textContent = resultText;
+            document.getElementById('result').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
