@@ -1,0 +1,209 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de Memoria</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f8ff;
+            margin: 0;
+        }
+        .memory-game {
+            width: 640px;
+            height: 640px;
+            display: flex;
+            flex-wrap: wrap;
+            perspective: 1000px;
+        }
+        .memory-card {
+            width: calc(25% - 10px);
+            height: calc(25% - 10px);
+            margin: 5px;
+            position: relative;
+            transform: scale(1);
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+        }
+        .memory-card.flip {
+            transform: rotateY(180deg);
+        }
+        .front-face,
+        .back-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 5px;
+        }
+        .front-face {
+            background: #e6e6fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            color: #333;
+            transform: rotateY(180deg);
+        }
+        .back-face {
+            background: #4682b4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="memory-game">
+        <div class="memory-card" data-framework="Hello">
+            <div class="front-face">Hello</div>
+            <div class="back-face"></div>
+        </div>
+        <div class="memory-card" data-framework="Hello">
+            <div class="front-face">Hola</div>
+            <div class="back-face"></div>
+        </div>
+        <div class="memory-card" data-framework="World">
+            <div class="front-face">World</div>
+            <div class="back-face"></div>
+        </div>
+        <div class="memory-card" data-framework="World">
+            <div class="front-face">Mundo</div>
+            <div class="back-face"></div>
+        </div>
+        <div class="memory-card" data-framework="Love">
+            <div class="front-face">Love</div>
+            <div class="back-face"></div>
+        </div>
+        <div class="memory-card" data-framework="Love">
+            <div class="front-face">Amor</div>
+            <div class="back-face"></div>
+        </div>
+        <div class="memory-card" data-framework="Peace">
+            <div class="front-face">Peace</div>
+            <div class="back-face"></div>
+        </div>
+        <div class="memory-card" data-framework="Peace">
+            <div class="front-face">Paz</div>
+            <div class="back-face"></div>
+        </div>
+        <div class="memory-card" data-framework="Friend">
+            <div class="front-face">Friend</div>
+            <div class="back-face"></div>
+        </div>
+        <div class="memory-card" data-framework="Friend">
+            <div class="front-face">Amigo</div>
+            <div class="back-face"></div>
+        </div>
+        <div class="memory-card" data-framework="Family">
+            <div class="front-face">Family</div>
+            <div class="back-face"></div>
+        </div>
+        <div class="memory-card" data-framework="Family">
+            <div class="front-face">Familia</div>
+            <div class="back-face"></div>
+        </div>
+        <div class="memory-card" data-framework="Happiness">
+            <div class="front-face">Happiness</div>
+            <div class="back-face"></div>
+        </div>
+        <div class="memory-card" data-framework="Happiness">
+            <div class="front-face">Felicidad</div>
+            <div class="back-face"></div>
+        </div>
+        <div class="memory-card" data-framework="Health">
+            <div class="front-face">Health</div>
+            <div class="back-face"></div>
+        </div>
+        <div class="memory-card" data-framework="Health">
+            <div class="front-face">Salud</div>
+            <div class="back-face"></div>
+        </div>
+        <div class="memory-card" data-framework="Hope">
+            <div class="front-face">Hope</div>
+            <div class="back-face"></div>
+        </div>
+        <div class="memory-card" data-framework="Hope">
+            <div class="front-face">Esperanza</div>
+            <div class="back-face"></div>
+        </div>
+        <div class="memory-card" data-framework="Courage">
+            <div class="front-face">Courage</div>
+            <div class="back-face"></div>
+        </div>
+        <div class="memory-card" data-framework="Courage">
+            <div class="front-face">Valor</div>
+            <div class="back-face"></div>
+        </div>
+    </div>
+    <script>
+        const cards = document.querySelectorAll('.memory-card');
+
+        let hasFlippedCard = false;
+        let lockBoard = false;
+        let firstCard, secondCard;
+
+        function flipCard() {
+            if (lockBoard) return;
+            if (this === firstCard) return;
+
+            this.classList.add('flip');
+
+            if (!hasFlippedCard) {
+                hasFlippedCard = true;
+                firstCard = this;
+                return;
+            }
+
+            secondCard = this;
+            checkForMatch();
+        }
+
+        function checkForMatch() {
+            let isMatch = firstCard.dataset.framework === secondCard.dataset.framework;
+
+            isMatch ? disableCards() : unflipCards();
+        }
+
+        function disableCards() {
+            firstCard.removeEventListener('click', flipCard);
+            secondCard.removeEventListener('click', flipCard);
+
+            resetBoard();
+        }
+
+        function unflipCards() {
+            lockBoard = true;
+
+            setTimeout(() => {
+                firstCard.classList.remove('flip');
+                secondCard.classList.remove('flip');
+
+                resetBoard();
+            }, 1500);
+        }
+
+        function resetBoard() {
+            [hasFlippedCard, lockBoard] = [false, false];
+            [firstCard, secondCard] = [null, null];
+        }
+
+        (function shuffle() {
+            cards.forEach(card => {
+                let randomPos = Math.floor(Math.random() * 20);
+                card.style.order = randomPos;
+            });
+        })();
+
+        cards.forEach(card => card.addEventListener('click', flipCard));
+    </script>
+</body>
+</html>
